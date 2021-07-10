@@ -7,6 +7,9 @@
   "scripts": {
     "lint": "eslint --ext .js,.cjs"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -14,6 +17,7 @@
     "@koa/router": "^10.0.0",
     "dotenv": "^10.0.0",
     "eslint-plugin-node": "^11.1.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-compress": "^5.0.1",
