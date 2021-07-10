@@ -1,6 +1,6 @@
-import Schema from '../../modules/Storage/DB';
+import { Schema, Types } from '../../modules/Storage/DB';
 
 export default new Schema({
-  name: 'string',
-  description: 'string',
+  name: Types.String,
+  description: Types.String,
 });

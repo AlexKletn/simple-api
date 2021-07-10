@@ -1,17 +1,14 @@
-import { Schema } from '../../modules/Storage/DB';
+import { Schema, Types } from '../../modules/Storage/DB';
 
 export default new Schema({
-  value: 'string',
-  expiresAt: 'date',
+  value: Types.String,
+  expiresAt: Types.Date,
 
   methods: {
     check() {
-      const currentDate = new Date();
-
-      if(this.expiresAt <= currentDate) return false
-
-
+      if (this.expiresAt <= new Date()) return false;
 
       return true;
+    },
   },
 });

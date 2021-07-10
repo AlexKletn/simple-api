@@ -21,3 +21,5 @@ export default class Schema extends SchemaMongoose {
     }
   }
 }
+
+export const { Types } = SchemaMongoose;
