@@ -1,5 +1,31 @@
-import controlers from './controllers';
+import { Auth, HomeController } from './controllers';
 
 export default {
-  // '/auth':
-}
+  '/': {
+    name: 'home',
+
+    test: {
+      get: HomeController,
+    },
+    auth: {
+      name: 'auth',
+
+      login: {
+        post: Auth.login,
+      },
+    },
+
+    contacts: {
+      name: 'contacts-catalog',
+
+      get: () => {
+      },
+      post: () => {
+      },
+      put: () => {
+      },
+      delete: () => {
+      },
+    },
+  },
+};

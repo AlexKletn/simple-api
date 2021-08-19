@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../obscur-planning-pocker/.idea/obscur-planning-pocker.iml" filepath="$PROJECT_DIR$/../obscur-planning-pocker/.idea/obscur-planning-pocker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/simple-api.iml" filepath="$PROJECT_DIR$/.idea/simple-api.iml" />
     </modules>
   </component>
 </project>
