@@ -1,6 +1,6 @@
 import { Model, Types } from '../../modules/Storage/DB';
 
-export default new Model({
+export default Model('Contact', {
   name: Types.String,
   bio: Types.String,
   role: {

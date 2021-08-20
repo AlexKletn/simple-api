@@ -1,10 +1,9 @@
 export const mongo = {
-  url: '',
-  dbName: 'obscur-planning-pocker',
-  auth: {
-    user: '',
-    pass: '',
-  },
+  url: 'localhost:27017',
+  dbName: 'simple-mkomov-test',
+
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
 };
 
 export default {

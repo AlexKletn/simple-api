@@ -1,4 +1,6 @@
-import { Schema as SchemaMongoose } from 'mongoose';
+import mongoose from 'mongoose';
+
+const { Schema: SchemaMongoose } = mongoose;
 
 export default class Schema extends SchemaMongoose {
   constructor({
@@ -17,7 +19,9 @@ export default class Schema extends SchemaMongoose {
 
     // eslint-disable-next-line no-restricted-syntax
     for (const virtualKey of Object.keys(virtual)) {
-      Object.assign(this.virtual(virtualKey), virtual[virtualKey]);
+      Object.keys(virtual[virtualKey]).forEach((key) => {
+        this.virtual(virtualKey)[key](virtual[virtualKey][key]);
+      });
     }
   }
 }

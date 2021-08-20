@@ -1,17 +1,17 @@
-import { Auth, HomeController } from './controllers';
+import { Auth } from './controllers';
 
 export default {
   '/': {
     name: 'home',
 
-    test: {
-      get: HomeController,
-    },
-    auth: {
-      name: 'auth',
+    user: {
+      name: 'user',
 
-      login: {
-        post: Auth.login,
+      create: {
+        post: Auth.create,
+      },
+      'sing-in': {
+        post: Auth.singIn,
       },
     },
 
