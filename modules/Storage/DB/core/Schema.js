@@ -18,7 +18,7 @@ export default class Schema extends SchemaMongoose {
     Object.assign(this.query, queries);
 
     // eslint-disable-next-line no-restricted-syntax
-    for (const virtualKey of Object.keys(virtual)) {
+    for (const virtualKey of Object.keys(virtual || {})) {
       Object.keys(virtual[virtualKey]).forEach((key) => {
         this.virtual(virtualKey)[key](virtual[virtualKey][key]);
       });

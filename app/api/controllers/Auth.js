@@ -3,7 +3,7 @@ import User from '../../models/User';
 
 export default {
   async singIn(ctx) {
-    if (ctx.state.auth) ctx.throw(403, 'access forbidden');
+    if (ctx.state.auth) ctx.throw(403);
 
     const {
       body,
@@ -13,13 +13,15 @@ export default {
       email: body.email,
     });
 
+    if (!user) ctx.throw(404);
+
     const token = await user.login(body.password);
 
     if (token) ctx.body = { token };
-    else ctx.throw(401);
+    else ctx.throw(404);
   },
   async create(ctx) {
-    if (ctx.state.auth) ctx.throw(403, 'access forbidden');
+    if (ctx.state.auth) ctx.throw(403);
 
     const {
       body, files,
@@ -32,10 +34,12 @@ export default {
       password: body.password,
     });
 
-    console.log(body, user);
+    if (!user) ctx.throw(401);
 
     ctx.body = {
-      token: await user.login(body.password),
+      access_token: await user.login(body.password),
+      expires_in: 3600,
+      token_type: 'bearer',
     };
   },
 };

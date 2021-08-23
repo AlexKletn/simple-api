@@ -1,0 +1,264 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Книга контактов"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "obscur.space"
+basePath: "/mkomov-test"
+schemes:
+  - "http"
+paths:
+  /sing-in:
+    post:
+      tags:
+        - "Авторизация"
+      summary: "Вход"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              schema:
+                access_token: "***"
+                expires_in: 3600
+                token_type: "bearer"
+        "401":
+          description: "Неправильные данные"
+        "403":
+          description: "Forbidden"
+  /contacts:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - "Контакты"
+      summary: "Список контактов"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "query"
+          name: "page"
+          required: false
+          type: "number"
+        - in: "query"
+          name: "perPage"
+          required: false
+          type: "number"
+        - in: "query"
+          description: 'name or emails or role'
+          name: "sortBy"
+          required: false
+          type: "number"
+        - in: "query"
+          name: "sortDir"
+          required: false
+          type: "string"
+          description: 'asc or desc'
+        - in: "query"
+          name: "search"
+          required: false
+          type: "string"
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              -
+                _id: "6123956645fc4c1255b39ea4"
+                name: "Петя"
+                role: "Дизайнер"
+                emails:
+                  - 'foo@examole.com'
+                phones:
+                  - '789156454564'
+                bio: "Тут Lorem"
+        "401":
+          description: "Неправильные данные"
+        "403":
+          description: "Forbidden"
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - "Контакты"
+      summary: "Создание"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Contact"
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              _id: "6123956645fc4c1255b39ea4"
+              name: "Петя"
+              role: "Дизайнер"
+              emails:
+                - 'foo@examole.com'
+              phones:
+                - '789156454564'
+              bio: "Тут Lorem"
+        "401":
+          description: "Неправильные данные"
+        "403":
+          description: "Forbidden"
+  /contacts/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - "Контакты"
+      summary: "Контакт по ID"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: "string"
+          required: true
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              _id: "6123956645fc4c1255b39ea4"
+              name: "Петя"
+              role: "Дизайнер"
+              emails:
+                - 'foo@examole.com'
+              phones:
+                - '789156454564'
+              bio: "Тут Lorem"
+        "401":
+          description: "Неправильные данные"
+        "403":
+          description: "Forbidden"
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - "Контакты"
+      summary: "Изменить контакт"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: "string"
+          required: true
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Contact"
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              _id: "6123956645fc4c1255b39ea4"
+              name: "Петя"
+              role: "Дизайнер"
+              emails:
+                - 'foo@examole.com'
+              phones:
+                - '789156454564'
+              bio: "Тут Lorem"
+        "401":
+          description: "Неправильные данные"
+        "403":
+          description: "Forbidden"
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - "Контакты"
+      summary: "Удалить контакт"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: "string"
+          required: true
+      responses:
+        "200":
+          description: OK
+          examples:
+            application/json:
+              result: "ok"
+        "401":
+          description: "Неправильные данные"
+        "403":
+          description: "Forbidden"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  User:
+    type: "object"
+    required:
+      - "email"
+      - "password"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+  Contact:
+    type: "object"
+    required:
+      - "name"
+      - "emails"
+      - "phones"
+      - "role"
+    properties:
+      name:
+        type: "string"
+        example: "Петя"
+      role:
+        type: "string"
+        example: "Дизайнер"
+      bio:
+        type: "string"
+        example: "Предположим что тут Lorem"
+      emails:
+        type: "array"
+        items:
+          type: "string"
+          example: "foo@example.com"
+      phones:
+        type: "array"
+        items:
+          type: "string"
+          example: "89116670687"

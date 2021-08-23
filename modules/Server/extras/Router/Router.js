@@ -25,7 +25,7 @@ export default class Router extends KoaRouter {
       const args = [];
 
       if (name) args.push(name);
-      args.push(routeKey.replace(/^\/*?/, '/'));
+      args.push(routeKey.replace(/^\/*?/, ''));
 
       if (get) this.writeRoute('get', get, args);
       if (post) this.writeRoute('post', post, args);
@@ -48,7 +48,7 @@ export default class Router extends KoaRouter {
   }
 
   writeRoute(methodName, handler, args) {
-    const methodArgs = args;
+    const methodArgs = [...args];
 
     if (handler instanceof Array) {
       methodArgs.push(...handler);
