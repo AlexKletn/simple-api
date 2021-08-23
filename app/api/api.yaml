@@ -80,6 +80,14 @@ paths:
           description: OK
           examples:
             application/json:
+              meta:
+                page: 1
+                perPage: 10
+                sortBy: 'name'
+                sortDir: 'asc'
+                search: ''
+                total: 30
+              items:
               -
                 _id: "6123956645fc4c1255b39ea4"
                 name: "Петя"

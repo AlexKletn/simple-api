@@ -1,4 +1,3 @@
-import KoaStatic from 'koa-static';
 import { Auth, Contact } from './controllers';
 
 export default {

@@ -17,15 +17,27 @@ export default {
 
       const searchRegExp = new RegExp(`${search}`, 'i');
 
-      ctx.body = await Contact.find({
+      const filter = {
         $or: [
           { name: { $regex: search, $options: 'i' } },
           { emails: { $in: [searchRegExp] } },
           { phones: { $in: [searchRegExp] } },
         ],
-      }).sort({
-        [sortBy]: sortDir,
-      }).skip((page - 1) * perPage).limit(perPage);
+      };
+
+      ctx.body = {
+        meta: {
+          page,
+          perPage,
+          sortBy,
+          sortDir,
+          search,
+          total: await Contact.countDocuments(filter),
+        },
+        items: await Contact.find(filter).sort({
+          [sortBy]: sortDir,
+        }).skip((page - 1) * perPage).limit(perPage),
+      };
     }
   },
   async create(ctx) {
