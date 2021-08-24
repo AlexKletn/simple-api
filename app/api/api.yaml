@@ -65,7 +65,7 @@ paths:
           description: 'name or role'
           name: "sortBy"
           required: false
-          type: "number"
+          type: "string"
         - in: "query"
           name: "sortDir"
           required: false
