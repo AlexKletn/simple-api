@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises';
 import User from '../../models/User';
 
 export default {
-  async singIn(ctx) {
+  async signIn(ctx) {
     if (ctx.state.auth) ctx.throw(403);
 
     const {

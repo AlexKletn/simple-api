@@ -6,7 +6,10 @@ export default {
       post: Auth.create,
     },
     'sing-in': {
-      post: Auth.singIn,
+      post: Auth.signIn,
+    },
+    'sign-in': {
+      post: Auth.signIn,
     },
 
     contacts: {
