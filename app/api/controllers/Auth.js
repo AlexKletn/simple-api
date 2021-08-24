@@ -17,8 +17,13 @@ export default {
 
     const token = await user.login(body.password);
 
-    if (token) ctx.body = { token };
-    else ctx.throw(404);
+    if (token) {
+      ctx.body = {
+        access_token: token,
+        expires_in: 3600,
+        token_type: 'bearer',
+      };
+    } else ctx.throw(401);
   },
   async create(ctx) {
     if (ctx.state.auth) ctx.throw(403);
