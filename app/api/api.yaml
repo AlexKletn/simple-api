@@ -62,7 +62,7 @@ paths:
           required: false
           type: "number"
         - in: "query"
-          description: 'name or emails or role'
+          description: 'name or role'
           name: "sortBy"
           required: false
           type: "number"
