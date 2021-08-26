@@ -3,6 +3,7 @@ import sslify from 'koa-sslify';
 import koaBody from 'koa-body';
 import bearerToken from 'koa-bearer-token';
 import logger from 'koa-logger';
+import koaCors from '@koa/cors';
 import http from 'http';
 import https from 'https';
 import { readFileSync } from 'fs';
@@ -30,6 +31,7 @@ export default class ObscurServer extends Koa {
       this.httpsServer.listen(securePort, host);
     }
 
+    this.use(koaCors());
     this.use(koaBody({
       multipart: true,
       uploadDir: '/tmp',
