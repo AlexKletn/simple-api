@@ -1,4 +1,3 @@
-import { readFile } from 'fs/promises';
 import User from '../../models/User';
 
 export default {
@@ -29,13 +28,13 @@ export default {
     if (ctx.state.auth) ctx.throw(403);
 
     const {
-      body, files,
+      body, /* files, */
     } = ctx.request;
 
     const user = await User.create({
       email: body.email,
       name: body.name,
-      image: await readFile(files.image.path),
+      // image: await readFile(files.image.path),
       password: body.password,
     });
 

@@ -12,7 +12,7 @@ export default {
       post: Auth.signIn,
     },
 
-    contact: {
+    contacts: {
       name: 'contacts',
 
       post: Contact.create,
