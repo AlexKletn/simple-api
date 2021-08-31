@@ -4,8 +4,14 @@ export default {
   async get(ctx) {
     if (!ctx.state.auth) ctx.throw(403);
 
-    if (ctx.id) {
-      ctx.body = await Contact.findById(ctx.id);
+    if (ctx.request.params.id) {
+      try {
+        const item = await Contact.findById(ctx.request.params.id);
+        if (item) ctx.body = item;
+        else ctx.throw(404);
+      } catch (e) {
+        ctx.throw(404);
+      }
     } else {
       const {
         page = 1,

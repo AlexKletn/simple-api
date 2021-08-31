@@ -18,6 +18,7 @@ export default {
       post: Contact.create,
 
       get: Contact.get,
+
       '/:id': {
         get: Contact.get,
         put: Contact.update,
