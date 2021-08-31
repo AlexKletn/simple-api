@@ -42,7 +42,7 @@ export default {
         },
         items: await Contact.find(filter).sort({
           [sortBy]: sortDir,
-        }).skip((page - 1) * perPage).limit(perPage),
+        }).skip((+page - 1) * +perPage).limit(+perPage),
       };
     }
   },
@@ -74,7 +74,9 @@ export default {
 
     ctx.body = await Contact.findOneAndUpdate({
       _id: params.id,
-    }, body);
+    }, body, {
+      new: true,
+    });
   },
   async delete(ctx) {
     if (!ctx.state.auth) ctx.throw(403);
