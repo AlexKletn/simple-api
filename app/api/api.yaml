@@ -51,6 +51,8 @@ paths:
           description: "Not Found"
   /user:
     get:
+      security:
+        - Bearer: [ ]
       tags:
         - "Пользователь"
       summary: "Данные пользователя"
@@ -252,6 +254,8 @@ paths:
           description: "Forbidden"
   /messages:
     post:
+      security:
+        - Bearer: [ ]
       tags:
         - "Сообщения"
       summary: "Отправка сообщения"
