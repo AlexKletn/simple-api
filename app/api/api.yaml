@@ -337,7 +337,7 @@ definitions:
     properties:
       _id:
         type: string
-      contactID:
-        $ref: '#/definitions/Contact/_id'
+      contact:
+        type: string
       message:
         type: "string"
