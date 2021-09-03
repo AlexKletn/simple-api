@@ -6,7 +6,7 @@ export default {
 
     if (ctx.request.params.id) {
       try {
-        const item = await Contact.findById(ctx.request.params.id);
+        const item = await Contact.findById(ctx.request.params.id, { image: 0 });
         if (item) ctx.body = item;
         else ctx.throw(404);
       } catch (e) {
@@ -14,8 +14,8 @@ export default {
       }
     } else {
       const {
-        page = 1,
-        perPage = 10,
+        offset = 0,
+        limit = 10,
         sortBy = 'name',
         sortDir = 'asc',
         search = '',
@@ -33,8 +33,8 @@ export default {
 
       ctx.body = {
         meta: {
-          page,
-          perPage,
+          offset,
+          limit,
           sortBy,
           sortDir,
           search,
@@ -42,9 +42,23 @@ export default {
         },
         items: await Contact.find(filter).sort({
           [sortBy]: sortDir,
-        }).skip((+page - 1) * +perPage).limit(+perPage),
+        }).skip(offset).limit(limit),
       };
     }
+  },
+  async contactImg(ctx) {
+    if (ctx.request.params.id) {
+      try {
+        const { image } = await Contact.findById(ctx.request.params.id, { image: 1 });
+
+        if (image) {
+          ctx.type = image.type;
+          ctx.body = image.data;
+        } else ctx.throw(404);
+      } catch (e) {
+        ctx.throw(404);
+      }
+    } else ctx.throw(404);
   },
   async create(ctx) {
     if (!ctx.state.auth) ctx.throw(403);

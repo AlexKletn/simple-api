@@ -46,4 +46,29 @@ export default {
       token_type: 'bearer',
     };
   },
+  async me(ctx) {
+    if (ctx.request.params.id) {
+      try {
+        const item = await User.findById(ctx.request.params.id, { image: 0 });
+        if (item) ctx.body = item;
+        else ctx.throw(404);
+      } catch (e) {
+        ctx.throw(404);
+      }
+    }
+  },
+  async userImg(ctx) {
+    if (ctx.request.params.id) {
+      try {
+        const { image } = await User.findById(ctx.request.params.id, { image: 1 });
+
+        if (image) {
+          ctx.type = image.type;
+          ctx.body = image.data;
+        } else ctx.throw(404);
+      } catch (e) {
+        ctx.throw(404);
+      }
+    } else ctx.throw(404);
+  },
 };

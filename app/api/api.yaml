@@ -13,21 +13,27 @@ basePath: "/mkomov-test"
 schemes:
   - "http"
 paths:
-  /sing-in:
+  /sign-in:
     post:
       tags:
         - "Авторизация"
       summary: "Вход"
       consumes:
-        - "application/json"
+        - "multipart/form-data"
       produces:
         - "application/json"
       parameters:
-        - in: "body"
-          name: "body"
+        - in: formData
+          name: "email"
           required: true
           schema:
-            $ref: "#/definitions/User"
+            type: string
+        - in: formData
+          name: "password"
+          required: true
+          schema:
+            type: string
+
       responses:
         "200":
           description: OK
@@ -41,10 +47,28 @@ paths:
           description: "Неправильные данные"
         "403":
           description: "Forbidden"
+        "404":
+          description: "Not Found"
+  /user:
+    get:
+      tags:
+        - "Пользователь"
+      summary: "Данные пользователя"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "403":
+          description: "Forbidden"
+        "404":
+          description: "Not Found"
   /contacts:
     get:
       security:
-        - Bearer: []
+        - Bearer: [ ]
       tags:
         - "Контакты"
       summary: "Список контактов"
@@ -88,22 +112,21 @@ paths:
                 search: ''
                 total: 30
               items:
-              -
-                _id: "6123956645fc4c1255b39ea4"
-                name: "Петя"
-                role: "Дизайнер"
-                emails:
-                  - 'foo@examole.com'
-                phones:
-                  - '789156454564'
-                bio: "Тут Lorem"
+                - _id: "6123956645fc4c1255b39ea4"
+                  name: "Петя"
+                  role: "Дизайнер"
+                  emails:
+                    - 'foo@examole.com'
+                  phones:
+                    - '789156454564'
+                  bio: "Тут Lorem"
         "401":
           description: "Неправильные данные"
         "403":
           description: "Forbidden"
     post:
       security:
-        - Bearer: []
+        - Bearer: [ ]
       tags:
         - "Контакты"
       summary: "Создание"
@@ -137,7 +160,7 @@ paths:
   /contacts/{id}:
     get:
       security:
-        - Bearer: []
+        - Bearer: [ ]
       tags:
         - "Контакты"
       summary: "Контакт по ID"
@@ -169,7 +192,7 @@ paths:
           description: "Forbidden"
     put:
       security:
-        - Bearer: []
+        - Bearer: [ ]
       tags:
         - "Контакты"
       summary: "Изменить контакт"
@@ -206,7 +229,7 @@ paths:
           description: "Forbidden"
     delete:
       security:
-        - Bearer: []
+        - Bearer: [ ]
       tags:
         - "Контакты"
       summary: "Удалить контакт"
@@ -227,6 +250,38 @@ paths:
           description: "Неправильные данные"
         "403":
           description: "Forbidden"
+  /messages:
+    post:
+      tags:
+        - "Сообщения"
+      summary: "Отправка сообщения"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+        - in: formData
+          name: "contactID"
+          required: true
+          schema:
+            type: string
+        - in: formData
+          name: "message"
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Message'
+        "401":
+          description: "Неправильные данные"
+        "403":
+          description: "Forbidden"
+        "404":
+          description: "Not Found"
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -239,9 +294,11 @@ definitions:
       - "email"
       - "password"
     properties:
-      email:
+      _id:
+        type: string
+      name:
         type: "string"
-      password:
+      email:
         type: "string"
   Contact:
     type: "object"
@@ -251,6 +308,8 @@ definitions:
       - "phones"
       - "role"
     properties:
+      _id:
+        type: string
       name:
         type: "string"
         example: "Петя"
@@ -270,3 +329,15 @@ definitions:
         items:
           type: "string"
           example: "89116670687"
+  Message:
+    type: "object"
+    required:
+      - "email"
+      - "password"
+    properties:
+      _id:
+        type: string
+      contactID:
+        $ref: '#/definitions/Contact/_id'
+      message:
+        type: "string"

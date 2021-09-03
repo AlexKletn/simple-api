@@ -1,15 +1,22 @@
-import { Auth, Contact } from './controllers';
+import { Auth, Contact, Messages } from './controllers';
 
 export default {
   '/': {
-    'sing-up': {
+    'sign-up': {
       post: Auth.create,
-    },
-    'sing-in': {
-      post: Auth.signIn,
     },
     'sign-in': {
       post: Auth.signIn,
+    },
+
+    user: {
+      name: 'User',
+
+      get: Auth.me,
+
+      '/image': {
+        get: Auth.userImg,
+      },
     },
 
     contacts: {
@@ -23,7 +30,16 @@ export default {
         get: Contact.get,
         put: Contact.update,
         del: Contact.delete,
+
+        '/image': {
+          get: Contact.contactImg,
+        },
       },
+    },
+    messages: {
+      name: 'messages',
+
+      post: Messages.create,
     },
   },
 };

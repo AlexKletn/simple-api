@@ -1,7 +1,8 @@
-import { randomBytes, pbkdf2Sync } from 'crypto';
+import { pbkdf2Sync, randomBytes } from 'crypto';
 import jwt from 'jsonwebtoken';
 import { Model, Types } from '../../modules/Storage/DB';
 import { jwtRSA } from '../../configs/secure';
+import File from './File';
 
 export default Model('User', {
   email: {
@@ -12,7 +13,10 @@ export default Model('User', {
     type: Types.String,
     required: true,
   },
-  image: Types.Buffer,
+  image: {
+    type: Types.ObjectId,
+    ref: File,
+  },
 
   salt: {
     type: Types.String,
