@@ -42,7 +42,9 @@ export default {
         },
         items: await Contact.find(filter).sort({
           [sortBy]: sortDir,
-        }).skip(offset).limit(limit),
+        })
+          .skip(Number(offset))
+          .limit(Number(limit)),
       };
     }
   },

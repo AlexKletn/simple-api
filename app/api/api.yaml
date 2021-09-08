@@ -80,12 +80,13 @@ paths:
         - "application/json"
       parameters:
         - in: "query"
-          name: "page"
-          required: false
+          name: "offset"
+          default: 0
           type: "number"
         - in: "query"
-          name: "perPage"
+          name: "limit"
           required: false
+          default: 10
           type: "number"
         - in: "query"
           description: 'name or role'
