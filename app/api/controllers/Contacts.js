@@ -43,8 +43,8 @@ export default {
         items: await Contact.find(filter).sort({
           [sortBy]: sortDir,
         })
-          .skip(Number(offset))
-          .limit(Number(limit)),
+          .skip(Math.abs(Number(offset)))
+          .limit(Math.abs(Number(limit))),
       };
     }
   },
