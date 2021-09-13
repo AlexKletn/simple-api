@@ -12,7 +12,7 @@ export default {
       email: body.email,
     });
 
-    if (!user) ctx.throw(404);
+    if (!user) ctx.throw(401);
 
     const token = await user.login(body.password);
 
