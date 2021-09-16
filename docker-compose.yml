@@ -13,8 +13,6 @@ services:
       - SIMPLE_DB_HOST=${SIMPLE_DB_HOST}
       - SIMPLE_DB_PORT=${SIMPLE_DB_PORT}
       - SIMPLE_DB_NAME=${SIMPLE_DB_NAME}
-    expose:
-      - ${SIMPLE_API_HOST}
     networks:
       - local
   mongodb:
