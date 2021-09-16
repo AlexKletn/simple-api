@@ -4,6 +4,7 @@ services:
     build:
       context: .
     env_file: ./.env
+    restart: always
     ports:
       - 8080:${SIMPLE_API_PORT}
     environment:
