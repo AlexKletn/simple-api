@@ -1,6 +1,6 @@
 export const api = {
-  host: 'localhost',
-  port: '8080',
+  host: process.env.SIMPLE_API_HOST || 'localhost',
+  port: process.env.SIMPLE_API_PORT || '8080',
 };
 
 export default {

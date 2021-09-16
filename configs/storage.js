@@ -1,6 +1,10 @@
 export const mongo = {
-  url: 'localhost:27017',
-  dbName: 'simple-mkomov-test',
+  url: `${
+    process.env.SIMPLE_DB_HOST
+  }:${
+    process.env.SIMPLE_DB_PORT
+  }`,
+  dbName: process.env.SIMPLE_DB_NAME,
 
   useUnifiedTopology: true,
   useNewUrlParser: true,
