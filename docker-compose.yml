@@ -6,23 +6,20 @@ services:
     env_file: ./.env
     restart: always
     ports:
-      - 8080:${SIMPLE_API_PORT}
+      - ${SIMPLE_API_PORT}:${SIMPLE_API_PORT}
     environment:
       - SIMPLE_API_HOST=${SIMPLE_API_HOST}
       - SIMPLE_API_PORT=${SIMPLE_API_PORT}
       - SIMPLE_DB_HOST=${SIMPLE_DB_HOST}
       - SIMPLE_DB_PORT=${SIMPLE_DB_PORT}
       - SIMPLE_DB_NAME=${SIMPLE_DB_NAME}
-    networks:
-      - local
+    links:
+      - mongodb
   mongodb:
     container_name: mongodb
-    image: mongodb
+    image: mongo
+    env_file: ./.env
     volumes:
       - ./data:/data/db
     ports:
-      - '27017:27017'
-
-networks:
-  local:
-    driver: bridge
+      - '${SIMPLE_DB_PORT}:${SIMPLE_DB_PORT}'
