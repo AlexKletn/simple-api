@@ -15,13 +15,13 @@ export default async function AuthMiddleware(ctx, next) {
     }
 
     if (payload) {
-      ctx.state.auth = User.findOne({
+      ctx.state.auth = await User.findOne({
         _id: payload.id,
       }, {
         passwordHash: 0,
         tokens: 0,
         salt: 0,
-      });
+      }).exec();
     }
   } else {
     ctx.state.auth = null;

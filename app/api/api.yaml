@@ -9,7 +9,7 @@ info:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 schemes:
-  - "https"
+  - "http"
 paths:
   /sign-in:
     post:
@@ -17,20 +17,15 @@ paths:
         - "Авторизация"
       summary: "Вход"
       consumes:
-        - "multipart/form-data"
+        - "application/json"
       produces:
         - "application/json"
       parameters:
-        - in: formData
-          name: "email"
+        - in: "body"
+          name: "body"
           required: true
           schema:
-            type: string
-        - in: formData
-          name: "password"
-          required: true
-          schema:
-            type: string
+            $ref: "#/definitions/Auth"
 
       responses:
         "200":
@@ -290,7 +285,19 @@ securityDefinitions:
     type: apiKey
     name: Authorization
     in: header
+    description: >-
+      example: Bearer \<token\>
 definitions:
+  Auth:
+    type: "object"
+    required:
+      - "email"
+      - "password"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
   User:
     type: "object"
     required:

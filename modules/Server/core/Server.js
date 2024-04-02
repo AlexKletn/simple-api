@@ -41,7 +41,9 @@ export default class ObscurServer extends Koa {
         keepExtensions: true, //  Extensions to save images
       },
     }));
-    this.use(bearerToken());
+    this.use(bearerToken({
+      headerKey: 'Bearer',
+    }));
     this.use(AuthMiddleware);
     this.use(logger());
 

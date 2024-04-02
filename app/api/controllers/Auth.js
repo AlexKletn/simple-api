@@ -19,7 +19,7 @@ export default {
     if (token) {
       ctx.body = {
         access_token: token,
-        expires_in: 3600,
+        expires_in: 36000000,
         token_type: 'bearer',
       };
     } else ctx.throw(401);
@@ -47,14 +47,10 @@ export default {
     };
   },
   async me(ctx) {
-    if (ctx.request.params.id) {
-      try {
-        const item = await User.findById(ctx.request.params.id, { image: 0 });
-        if (item) ctx.body = item;
-        else ctx.throw(404);
-      } catch (e) {
-        ctx.throw(404);
-      }
+    if (ctx.state.auth) {
+      ctx.body = ctx.state.auth;
+    } else {
+      ctx.throw(404);
     }
   },
   async userImg(ctx) {
