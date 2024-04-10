@@ -20,7 +20,6 @@ services:
     image: mongo
     env_file: ./.env
     volumes:
-      - './mongo-configs:/etc'
       - ./data:/data/db
     ports:
       - '${SIMPLE_DB_PORT}:${SIMPLE_DB_PORT}'
