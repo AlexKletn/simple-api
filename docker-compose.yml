@@ -13,6 +13,8 @@ services:
       - SIMPLE_DB_HOST=${SIMPLE_DB_HOST}
       - SIMPLE_DB_PORT=${SIMPLE_DB_PORT}
       - SIMPLE_DB_NAME=${SIMPLE_DB_NAME}
+      - SIMPLE_DB_USERNAME=${SIMPLE_DB_USERNAME}
+      - SIMPLE_DB_PASSWORD=${SIMPLE_DB_PASSWORD}
     links:
       - mongodb
   mongodb:
@@ -24,3 +26,6 @@ services:
       - ./data:/data/db
     ports:
       - '${SIMPLE_DB_PORT}:${SIMPLE_DB_PORT}'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${SIMPLE_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${SIMPLE_DB_PASSWORD}
