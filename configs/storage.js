@@ -6,9 +6,6 @@ export const mongo = {
   }`,
   dbName: process.env.SIMPLE_DB_NAME,
 
-  user: process.env.SIMPLE_DB_USERNAME,
-  pass: process.env.SIMPLE_DB_PASSWORD,
-
   useUnifiedTopology: true,
   useNewUrlParser: true,
 };
